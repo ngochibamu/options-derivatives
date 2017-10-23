@@ -14,7 +14,7 @@ GenericOption::GenericOption(const GenericOption &p)
 
 }
 
-GenericOption::&GenericOption operator=(const GenericOption &p)
+GenericOption &GenericOption::operator=(const GenericOption &p)
 {
 	if(this != &p){
 		strike = p.strike;
@@ -24,21 +24,37 @@ GenericOption::&GenericOption operator=(const GenericOption &p)
 	return *this;
 }
 
-double valueAtExpiration(double underlyingAtExpiration)
+double GenericOption::valueAtExpiration(double underlyingAtExpiration)
 {
-	double value = 0.0
-	if(type == OptionType_Call){
-		if(underlyingAtExpiration > strike)
+	double value = 0.0;
+	if(this->type == OptionType_Call){
+		if(underlyingAtExpiration > this->strike)
 		{
-			value = underlyingAtExpiration - strike;
+			value = underlyingAtExpiration - this->strike;
 		}
 	}
 	else
 	{
-		if(underlyingAtExpiration < strike)
+		if(underlyingAtExpiration < this->strike)
 		{
-			value = strike - underlyingAtExpiration;
+			value = this->strike - underlyingAtExpiration;
 		}
 	}
 	return value;
+}
+
+double GenericOption::profitAtExpiration(double underlyingAtExpiration)
+{
+	double profit = 0.0;
+	double finalValue = valueAtExpiration(underlyingAtExpiration);
+	if(finalValue > this->cost){
+		profit = finalValue - this->cost;
+	}
+	return profit;
+}
+
+
+int main() 
+{
+	return 0;
 }

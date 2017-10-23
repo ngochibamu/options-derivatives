@@ -24,5 +24,5 @@ private:
 	double strike;
 	OptionType type;
 	double cost;
-}
-#endif;
+};
+#endif
